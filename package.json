@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-complete-guide",
+  "version": "1.0.0",
+  "description": "Complete Node.js Guide",
+  "homepage": "https://github.com/hardikbegmal07/NodeJs-Complete-Guide#readme",
+  "bugs": {
+    "url": "https://github.com/hardikbegmal07/NodeJs-Complete-Guide/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hardikbegmal07/NodeJs-Complete-Guide.git"
+  },
+  "license": "ISC",
+  "author": "Hardik Kumar Begmal",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-server": "node app.js"
+  }
+}
