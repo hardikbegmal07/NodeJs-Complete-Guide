@@ -2,6 +2,8 @@ const http = require("http"); // require takes a path to another file or import 
 
 const routes = require("./routes");
 
+// will be working with express.js to learn more on srevers and api
+
 /*
   An HTTP request body can arrive as a stream of chunks, so Node.js lets us to listen for data events to collect those chunks 
   and an end event to know when the complete body has arrived.
