@@ -21,15 +21,25 @@ const express = require("express");
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("In the middleware!");
-  next(); // allows the request to continue to the next middleware in line
-}); // use() allows us to add a new middleware function,
+// app.use((req, res, next) => {
+//   console.log("In the middleware!");
+//   next(); // allows the request to continue to the next middleware in line
+// }); // use() allows us to add a new middleware function,
 // req, res are request and response parameters with some more functions, next is a function
 // it allows the request to continue to the next middleware in line
 
-app.use((req, res, next) => {
+app.use("/", (req, res, next) => {
+  console.log("This always runs!");
+  next();
+});
+
+app.use("/add-product", (req, res, next) => {
   console.log("In another middleware!");
+  res.send('<h1>The "Add Product" page</h1>');
+});
+
+app.use("/", (req, res, next) => {
+  console.log("In another middleware!!");
   res.send("<h1>Hello from Express!</h1>");
 });
 
