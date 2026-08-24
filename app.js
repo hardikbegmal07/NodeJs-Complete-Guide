@@ -1,6 +1,7 @@
 // const http = require("http"); // require takes a path to another file or import a core module like http
 
 const express = require("express");
+const bodyParser = require("body-parser");
 
 // const routes = require("./routes");
 
@@ -28,18 +29,25 @@ const app = express();
 // req, res are request and response parameters with some more functions, next is a function
 // it allows the request to continue to the next middleware in line
 
-app.use("/", (req, res, next) => {
-  console.log("This always runs!");
-  next();
-});
+// app.use('/', (req, res, next) => {
+//   console.log("This always runs!");
+//   next();
+// });
+
+app.use(bodyParser.urlencoded()); // it can parse body, which are send through a form
 
 app.use("/add-product", (req, res, next) => {
-  console.log("In another middleware!");
-  res.send('<h1>The "Add Product" page</h1>');
+  res.send(
+    '<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>',
+  );
 });
 
+app.post("/product", (req, res, next) => {
+  console.log(req.body); // we are able to parse incoming body because of bodyParser which is great !!
+  res.redirect("/");
+}); // now this will only filter for the post request not the get request
+
 app.use("/", (req, res, next) => {
-  console.log("In another middleware!!");
   res.send("<h1>Hello from Express!</h1>");
 });
 
