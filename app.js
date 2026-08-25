@@ -34,21 +34,17 @@ const app = express();
 //   next();
 // });
 
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
 app.use(bodyParser.urlencoded()); // it can parse body, which are send through a form
 
-app.use("/add-product", (req, res, next) => {
-  res.send(
-    '<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>',
-  );
-});
+app.use("/admin", adminRoutes);
 
-app.post("/product", (req, res, next) => {
-  console.log(req.body); // we are able to parse incoming body because of bodyParser which is great !!
-  res.redirect("/");
-}); // now this will only filter for the post request not the get request
+app.use(shopRoutes);
 
-app.use("/", (req, res, next) => {
-  res.send("<h1>Hello from Express!</h1>");
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found</h1>"); // if we want to set 404 status code then .status() is chained prior to send() as it is last call
 });
 
 // const server = http.createServer(app); // routes.handler
