@@ -1,4 +1,5 @@
 // const http = require("http"); // require takes a path to another file or import a core module like http
+const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -44,7 +45,8 @@ app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).send("<h1>Page not found</h1>"); // if we want to set 404 status code then .status() is chained prior to send() as it is last call
+  // res.status(404).send("<h1>Page not found</h1>"); // if we want to set 404 status code then .status() is chained prior to send() as it is last call
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 // const server = http.createServer(app); // routes.handler
