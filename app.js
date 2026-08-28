@@ -39,6 +39,7 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded()); // it can parse body, which are send through a form
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 
