@@ -1,57 +1,27 @@
-// const http = require("http"); // require takes a path to another file or import a core module like http
 const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
 
-// const routes = require("./routes");
-
-// will be working with express.js to learn more on srevers and api
-
-/*
-  An HTTP request body can arrive as a stream of chunks, so Node.js lets us to listen for data events to collect those chunks 
-  and an end event to know when the complete body has arrived.
-*/
-
-// const server = http.createServer((req, res) => {
-//   // console.log(req.url, req.method, req.headers);
-//   // process.exit(); but we never tend to exit our server bcz if the server is closed,
-//   // and a user sends some request it will not read that is why we try not to end a server
-
-// }); // it requires a requestListener
-// // requestListener is a function that will exexute for every incoming request
-
 const app = express();
 
-// app.use((req, res, next) => {
-//   console.log("In the middleware!");
-//   next(); // allows the request to continue to the next middleware in line
-// }); // use() allows us to add a new middleware function,
-// req, res are request and response parameters with some more functions, next is a function
-// it allows the request to continue to the next middleware in line
+app.set("view engine", "ejs");
+app.set("views", "views");
 
-// app.use('/', (req, res, next) => {
-//   console.log("This always runs!");
-//   next();
-// });
-
-const adminRoutes = require("./routes/admin");
+const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
-app.use(bodyParser.urlencoded()); // it can parse body, which are send through a form
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminRoutes);
-
+app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  // res.status(404).send("<h1>Page not found</h1>"); // if we want to set 404 status code then .status() is chained prior to send() as it is last call
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).render("404", {
+    pageTitle: "Page Not Found",
+    path: req.path,
+  });
 });
 
-// const server = http.createServer(app); // routes.handler
-// server.listen(3000); // starts a process and keeps on listening to the incoming request
-
-// instead of using above 2 lines, we can now just shorten it to
 app.listen(3000);
