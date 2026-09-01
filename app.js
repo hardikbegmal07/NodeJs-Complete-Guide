@@ -3,6 +3,11 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 
+/*
+  Controller = decides what should happen for a request
+  Model = handles the application data
+*/
+
 const errorController = require("./controllers/error");
 
 const app = express();
@@ -14,6 +19,7 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+// (Express / body-parser) parses the form data and makes it available through (req.body)
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
