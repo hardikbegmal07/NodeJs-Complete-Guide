@@ -36,8 +36,11 @@ const getProductsFromFile = (cb) => {
 // model reads products.json, waiting for file, finc products and return them with help of CALLBACK function cb
 
 module.exports = class Products {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   } // create a projuct object whose title is "title".
 
   save() {
@@ -48,7 +51,7 @@ module.exports = class Products {
       // this: refers to the particular product, add the product, i just created to the existing products.
       fs.writeFile(p, JSON.stringify(products), (err) => {
         // JSON.stringify(products): gets converted into JSON text so that it can be written into the file.
-        console.log(err);
+        // console.log(err);
       }); // III) converts the list to JSON and write it back into the file.
     });
   } // saves the product

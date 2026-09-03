@@ -17,7 +17,7 @@ const requestHandler = (req, res) => {
   if (url === "/message" && method === "POST") {
     const body = [];
     req.on("data", (chunk) => {
-      console.log(chunk);
+      // console.log(chunk);
       body.push(chunk);
     }); // on() allows us to listen to events and here we will be listening to data events.
     return req.on("end", () => {
