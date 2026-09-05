@@ -45,6 +45,7 @@ module.exports = class Products {
 
   save() {
     // products.push(this);
+    this.id = Math.random().toString();
     getProductsFromFile((products) => {
       // I) first we get existing products from the file
       products.push(this); // II) when we get those product, we add this product to that list
@@ -60,6 +61,13 @@ module.exports = class Products {
     // static ? bcz we don't need to create a particular product to ask: "what products exists?"
     getProductsFromFile(cb);
   } // retrieves product, we are asking Product model itself for all products
+
+  static findById(id, cb) {
+    getProductsFromFile((products) => {
+      const product = products.find((p) => p.id == id);
+      cb(product);
+    });
+  }
 };
 
 // there can be different models as well like Product, User, Order, Cart
